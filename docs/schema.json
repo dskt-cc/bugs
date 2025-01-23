@@ -1,73 +1,109 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "definitions": {
-    "commonBug": {
-      "type": "object",
-      "required": [
-        "id",
-        "title",
-        "description",
-        "severity",
-        "reportedBy",
-        "dateReported",
-        "affected"
-      ],
-      "properties": {
-        "id": {
-          "type": "string",
-          "pattern": "^BUG-\\d{3}$",
-          "description": "Unique bug identifier"
-        },
-        "title": {
-          "type": "string",
-          "minLength": 5,
-          "maxLength": 100,
-          "description": "Brief bug title"
-        },
-        "description": {
-          "type": "string",
-          "minLength": 20,
-          "description": "Detailed description of the bug"
-        },
-        "severity": {
-          "type": "string",
-          "enum": ["critical", "high", "medium", "low"],
-          "description": "Bug severity level"
-        },
-        "reportedBy": {
-          "type": "string",
-          "pattern": "^[a-zA-Z0-9-]+$",
-          "description": "GitHub username of reporter"
-        },
-        "dateReported": {
-          "type": "string",
-          "format": "date",
-          "description": "Date bug was reported (YYYY-MM-DD)"
-        },
-        "affected": {
-          "type": "array",
-          "items": {
+  "type": "object",
+  "required": ["bugs", "metadata"],
+  "properties": {
+    "bugs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "description",
+          "severity",
+          "reportedBy",
+          "dateReported",
+          "affected"
+        ],
+        "properties": {
+          "id": {
             "type": "string",
-            "enum": [
-              "Website",
-              "ModLoader",
-              "UI",
-              "API",
-              "Documentation",
-              "ModFilters",
-              "Performance",
-              "Security",
-              "Other"
-            ]
+            "pattern": "^BUG-\\d{3}$"
           },
-          "minItems": 1,
-          "uniqueItems": true,
-          "description": "Components affected by the bug"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["bug", "security", "enhancement"],
-          "description": "Type of issue"
+          "title": {
+            "type": "string",
+            "minLength": 5,
+            "maxLength": 100
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20
+          },
+          "severity": {
+            "type": "string",
+            "enum": ["critical", "high", "medium", "low"]
+          },
+          "reportedBy": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9-]+$"
+          },
+          "dateReported": {
+            "type": "string",
+            "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$"
+          },
+          "dateFixed": {
+            "type": "string",
+            "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["investigating", "confirmed", "in-progress", "pending-release"]
+          },
+          "assignedTo": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9-]+$"
+            },
+            "uniqueItems": true
+          },
+          "affected": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Website",
+                "ModLoader",
+                "UI",
+                "API",
+                "Documentation",
+                "ModFilters",
+                "Performance",
+                "Security",
+                "Other"
+              ]
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "type": {
+            "type": "string",
+            "enum": ["bug", "security", "enhancement"]
+          },
+          "fixedBy": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-zA-Z0-9-]+$"
+            },
+            "uniqueItems": true
+          },
+          "fixedIn": {
+            "type": "string"
+          },
+          "commits": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-f0-9]+$"
+            },
+            "uniqueItems": true
+          },
+          "pullRequest": {
+            "type": "string",
+            "pattern": "^\\d+$"
+          }
         }
       }
     },
@@ -77,139 +113,21 @@
       "properties": {
         "lastUpdated": {
           "type": "string",
-          "format": "date",
-          "description": "Last update date (YYYY-MM-DD)"
+          "pattern": "^\\d{4}-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\\d|3[01])$"
         },
         "repository": {
           "type": "string",
-          "pattern": "^dskt-cc/[a-zA-Z0-9-\\.]+$",
-          "description": "Repository identifier"
+          "pattern": "^dskt-cc/[a-zA-Z0-9-\\.]+$"
+        },
+        "totalActiveBugs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "totalFixed": {
+          "type": "number",
+          "minimum": 0
         }
       }
     }
-  },
-  "oneOf": [
-    {
-      "type": "object",
-      "required": ["bugs", "metadata"],
-      "properties": {
-        "bugs": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/commonBug" },
-              {
-                "type": "object",
-                "required": ["status"],
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "enum": ["investigating", "confirmed", "in-progress", "pending-release"],
-                    "description": "Current status of the bug"
-                  },
-                  "assignedTo": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "pattern": "^[a-zA-Z0-9-]+$"
-                    },
-                    "uniqueItems": true,
-                    "description": "GitHub usernames of assigned developers"
-                  }
-                }
-              }
-            ]
-          },
-          "description": "List of known bugs"
-        },
-        "metadata": {
-          "allOf": [
-            { "$ref": "#/definitions/metadata" },
-            {
-              "type": "object",
-              "required": ["totalActiveBugs"],
-              "properties": {
-                "totalActiveBugs": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Total number of active bugs"
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "type": "object",
-      "required": ["bugs", "metadata"],
-      "properties": {
-        "bugs": {
-          "type": "array",
-          "items": {
-            "allOf": [
-              { "$ref": "#/definitions/commonBug" },
-              {
-                "type": "object",
-                "required": ["dateFixed", "fixedBy", "fixedIn", "commits"],
-                "properties": {
-                  "dateFixed": {
-                    "type": "string",
-                    "format": "date",
-                    "description": "Date bug was fixed (YYYY-MM-DD)"
-                  },
-                  "fixedBy": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "pattern": "^[a-zA-Z0-9-]+$"
-                    },
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "description": "GitHub usernames of developers who fixed the bug"
-                  },
-                  "fixedIn": {
-                    "type": "string",
-                    "description": "Version or branch where the fix was implemented"
-                  },
-                  "commits": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "pattern": "^[a-f0-9]+$"
-                    },
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "description": "Related commit hashes"
-                  },
-                  "pullRequest": {
-                    "type": "string",
-                    "pattern": "^\\d+$",
-                    "description": "Pull request number"
-                  }
-                }
-              }
-            ]
-          },
-          "description": "List of patched bugs"
-        },
-        "metadata": {
-          "allOf": [
-            { "$ref": "#/definitions/metadata" },
-            {
-              "type": "object",
-              "required": ["totalFixed"],
-              "properties": {
-                "totalFixed": {
-                  "type": "number",
-                  "minimum": 0,
-                  "description": "Total number of fixed bugs"
-                }
-              }
-            }
-          ]
-        }
-      }
-    }
-  ]
+  }
 }

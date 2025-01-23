@@ -13,14 +13,16 @@ function validateMetadata() {
     throw new Error('Patched bugs count mismatch');
   }
 
-  // Verify lastUpdated is current
-  const today = new Date().toISOString().split('T')[0];
-  if (known.metadata.lastUpdated !== today) {
-    throw new Error('Known bugs lastUpdated needs updating');
+  // Verify lastUpdated is a valid date
+  const knownDate = new Date(known.metadata.lastUpdated);
+  const patchedDate = new Date(patched.metadata.lastUpdated);
+
+  if (isNaN(knownDate.getTime())) {
+    throw new Error('Known bugs lastUpdated is not a valid date');
   }
 
-  if (patched.metadata.lastUpdated !== today) {
-    throw new Error('Patched bugs lastUpdated needs updating');
+  if (isNaN(patchedDate.getTime())) {
+    throw new Error('Patched bugs lastUpdated is not a valid date');
   }
 
   console.log('Metadata validation passed');

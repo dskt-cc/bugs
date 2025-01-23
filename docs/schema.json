@@ -69,8 +69,10 @@
                 "API",
                 "Documentation",
                 "ModFilters",
+                "ModsBrowser",
                 "Performance",
                 "Security",
+                "Core",
                 "Other"
               ]
             },
@@ -80,6 +82,9 @@
           "type": {
             "type": "string",
             "enum": ["bug", "security", "enhancement"]
+          },
+          "component": {
+            "type": "string"
           },
           "fixedBy": {
             "type": "array",

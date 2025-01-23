@@ -9,7 +9,7 @@
       "dateReported": "2025-01-21",
       "dateFixed": "2025-01-21",
       "fixedBy": ["SilverMoonDev"],
-      "fixedIn": "main",
+      "fixedIn": "0.2.0",
       "affected": ["UI", "ModFilters"],
       "commits": ["56f19cc"],
       "pullRequest": "1",

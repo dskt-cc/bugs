@@ -1,0 +1,25 @@
+{
+  "bugs": [
+    {
+      "id": "BUG-001",
+      "title": "Quality Of Life Filter Not Working",
+      "description": "The QualityOfLife enum member value in the ModCategory enum did not match the corresponding JSON value for the category, causing filter functionality to fail.",
+      "severity": "medium",
+      "reportedBy": "SilverMoonDev",
+      "dateReported": "2025-01-21",
+      "dateFixed": "2025-01-21",
+      "fixedBy": ["SilverMoonDev"],
+      "fixedIn": "main",
+      "affected": ["UI", "ModFilters"],
+      "commits": ["56f19cc"],
+      "pullRequest": "1",
+      "type": "bug",
+      "component": "ModCategory"
+    }
+  ],
+  "metadata": {
+    "lastUpdated": "2025-01-23",
+    "repository": "dskt-cc/dskt.cc",
+    "totalFixed": 1
+  }
+}

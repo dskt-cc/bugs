@@ -1,6 +1,6 @@
 # dskt.cc Bug Tracker
 
-This repository tracks bugs and issues for [dskt.cc](https://dskt.cc) and it's related services. It contains a record of both known and patched bugs, along with their statuses and resolutions.
+This repository tracks bugs and issues for [dskt.cc](https://dskt.cc) and its related services. It contains a record of both known and patched bugs, along with their statuses and resolutions.
 
 ## Structure
 ```
@@ -14,14 +14,15 @@ bugs/
 │   ├── SECURITY.md
 │   └── JSON_SCHEMA.md
 ├── patched.json
-└── known.json
+├── known.json
+└── LICENSE
 ```
 
 ## Bug Reporting
 
 Before submitting a bug report:
-1. Check if the bug is already reported in [known.json](./known.json)
-2. Check if it was recently fixed in [patched.json](./patched.json)
+1. Check if the bug is already reported in [known.json](known.json)
+2. Check if it was recently fixed in [patched.json](patched.json)
 3. Use the bug report template when creating a new issue
 
 ### Severity Levels
@@ -58,7 +59,8 @@ Before submitting a bug report:
   }
 }
 ```
-Patched Bugs (patched.json)
+
+### Patched Bugs (`patched.json`)
 ```json
 {
   "bugs": [
@@ -86,14 +88,14 @@ Patched Bugs (patched.json)
 ```
 
 ## Security
-For security-related issues, please follow our security policy. Do not create public issues for security vulnerabilities.
+For security-related issues, please follow our [security policy](docs/SECURITY.md). Do not create public issues for security vulnerabilities.
 
 ## Contributing
-See [CONTRIBUTING.md] for guidelines on:
-	•	Creating bug reports
-	•	Updating bug statuses
-	•	JSON file maintenance
-	•	Pull request process
+See [CONTRIBUTING.md](docs/CONTRIBUTING.md) for guidelines on:
+- Creating bug reports
+- Updating bug statuses
+- JSON file maintenance
+- Pull request process
  
 ## License
-MIT License - see [LICENSE.md]
+MIT License - see [LICENSE](LICENSE)

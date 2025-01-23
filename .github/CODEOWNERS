@@ -1,0 +1,9 @@
+# Default owners for everything in the repo
+* @dvhsh
+
+# JSON files require review
+*.json @dvhsh
+
+# Security related files
+/docs/SECURITY.md @dvhsh
+.github/ISSUE_TEMPLATE/security_report.yml @dvhsh

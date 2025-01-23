@@ -1,11 +1,8 @@
 {
-  "bugs": [{
-    "id": "INVALID-ID",
-    "severity": "unknown"
-  }],
+  "bugs": [],
   "metadata": {
     "lastUpdated": "2025-01-23",
     "repository": "dskt-cc/dskt.cc",
-    "totalActiveBugs": 1
+    "totalActiveBugs": 0
   }
 }
